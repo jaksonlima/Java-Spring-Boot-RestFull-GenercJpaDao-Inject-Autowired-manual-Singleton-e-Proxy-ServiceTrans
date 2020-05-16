@@ -10,43 +10,36 @@ import java.lang.annotation.*;
 
 /**
  * @Doc
- * */
+ */
 
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
 @Documented
 @Transactional
 @Service
 public @interface ServiceTransactional {
 
-    @AliasFor("transactionManager")
-    String value() default "";
-
-    @AliasFor("value")
-    String transactionManager() default "";
-
-    @AliasFor(value = "propagation", annotation = Transactional.class)
+    @AliasFor(annotation = Transactional.class)
     Propagation propagation() default Propagation.REQUIRED;
 
-    @AliasFor(value = "isolation", annotation = Transactional.class)
+    @AliasFor(annotation = Transactional.class)
     Isolation isolation() default Isolation.DEFAULT;
 
-    @AliasFor(value = "timeout", annotation = Transactional.class)
+    @AliasFor(annotation = Transactional.class)
     int timeout() default -1;
 
-    @AliasFor(value = "readOnly", annotation = Transactional.class)
+    @AliasFor(annotation = Transactional.class)
     boolean readOnly() default false;
 
-    @AliasFor(value = "rollbackFor", annotation = Transactional.class)
+    @AliasFor(annotation = Transactional.class)
     Class<? extends Throwable>[] rollbackFor() default {};
 
-    @AliasFor(value = "rollbackForClassName", annotation = Transactional.class)
+    @AliasFor(annotation = Transactional.class)
     String[] rollbackForClassName() default {};
 
-    @AliasFor(value = "noRollbackFor", annotation = Transactional.class)
+    @AliasFor(annotation = Transactional.class)
     Class<? extends Throwable>[] noRollbackFor() default {};
 
-    @AliasFor(value = "noRollbackForClassName", annotation = Transactional.class)
+    @AliasFor(annotation = Transactional.class)
     String[] noRollbackForClassName() default {};
 }
