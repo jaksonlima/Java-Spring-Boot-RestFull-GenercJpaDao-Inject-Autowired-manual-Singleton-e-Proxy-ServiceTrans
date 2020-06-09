@@ -1,4 +1,4 @@
-package api.restful.restfull.generic;
+package api.restful.restfull.generic.repository;
 
 import java.io.Serializable;
 

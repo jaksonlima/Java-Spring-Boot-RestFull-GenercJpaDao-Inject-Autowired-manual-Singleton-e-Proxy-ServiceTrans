@@ -1,4 +1,4 @@
-package api.restful.restfull.generic;
+package api.restful.restfull.generic.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -81,6 +81,7 @@ public abstract class AbstractJpaDAO<T> {
     }
 
     public void remove(T entity) {
+        getEntityManager().remove(entity);
     }
 
     public void lock(T entity) {

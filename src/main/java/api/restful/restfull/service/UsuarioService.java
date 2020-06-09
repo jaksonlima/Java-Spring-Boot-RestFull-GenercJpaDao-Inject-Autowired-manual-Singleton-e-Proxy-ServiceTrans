@@ -1,16 +1,18 @@
 package api.restful.restfull.service;
 
-import api.restful.restfull.transactional.service.ServiceTransactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import api.restful.restfull.model.Usuario;
 
-@ServiceTransactional
-public class UsuarioService {
+import java.util.List;
 
-    @Autowired
-    private ProjetoService projetoService;
+public interface UsuarioService {
 
-    public void PropagationREQUIRES_NEW(){
-        projetoService.PropagationREQUIRES_NEW();
-        System.out.println("UsuarioService");
-    }
+    List<Usuario> listar();
+
+    Usuario encontrar(Integer id);
+
+    Usuario atualizar(Integer id, Usuario usuario);
+
+    void criar(Usuario usuario);
+
+    void deletar(Usuario usuario);
 }
