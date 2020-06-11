@@ -1,5 +1,6 @@
 package api.restful.restfull.context;
 
+import api.restful.restfull.service.impl.UsuarioServiceImpl;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -13,18 +14,22 @@ import java.util.Collection;
 import java.util.Map;
 
 @Configuration
-public class Context implements ApplicationContextAware {
+public class ContextImpl implements ApplicationContextAware, IContext {
 
     private static ApplicationContext applicationContext;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+
+        createBeanProxy(UsuarioServiceImpl.class);
+//        createBeanSingleton(UsuarioServiceImpl.class);
     }
 
-    private void createBeanSingleton(Class clazz) {
+    @Override
+    public void createBeanSingleton(Class clazz) {
         try {
-            Object bean = newInstance(clazz);
+            Object bean = instantiateClass(clazz);
             ConfigurableListableBeanFactory beanFactory = ((ConfigurableApplicationContext) applicationContext).getBeanFactory();
             beanFactory.registerSingleton(bean.getClass().getCanonicalName(), bean);
             beanFactory.autowireBean(bean);
@@ -33,11 +38,24 @@ public class Context implements ApplicationContextAware {
         }
     }
 
-    private void createBeanProxy() throws Exception {
+    @Override
+    public void createBeanProxy(Class clazz) {
         final ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
+
+        Object bean = instantiateClass(clazz);
+
+        ConfigurableListableBeanFactory beanFactory = ((ConfigurableApplicationContext) applicationContext).getBeanFactory();
+        beanFactory.autowireBean(bean);
+
+        proxyFactoryBean.setTarget(bean);
+
+        bean = proxyFactoryBean.getObject();
+
+        beanFactory.registerSingleton(bean.getClass().getCanonicalName(), bean);
     }
 
-    public static <T> T getBean(Class<T> clazzBean) {
+    @Override
+    public <T> T getBean(Class<T> clazzBean) {
         try {
             return applicationContext.getAutowireCapableBeanFactory().getBean(clazzBean);
         } catch (Exception e) {
@@ -45,7 +63,8 @@ public class Context implements ApplicationContextAware {
         }
     }
 
-    public static <T> Collection<T> getBeansInterface(Class<T> classInterface) {
+    @Override
+    public <T> Collection<T> getBeansInterface(Class<T> classInterface) {
         try {
             if (classInterface.isInterface()) {
                 final Map<String, T> beansOfType = applicationContext.getBeansOfType(classInterface);
@@ -60,7 +79,7 @@ public class Context implements ApplicationContextAware {
         }
     }
 
-    private Object newInstance(Class clazz) {
+    private Object instantiateClass(Class clazz) {
         try {
             if (clazz == null) {
                 throw new RuntimeException("Class não encontrada.");

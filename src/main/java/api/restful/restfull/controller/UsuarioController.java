@@ -1,6 +1,7 @@
 package api.restful.restfull.controller;
 
-import api.restful.restfull.context.Context;
+import api.restful.restfull.context.ContextImpl;
+import api.restful.restfull.context.IContext;
 import api.restful.restfull.generic.repository.IGenericDAO;
 import api.restful.restfull.model.Usuario;
 import api.restful.restfull.service.UsuarioService;
@@ -51,7 +52,7 @@ public class UsuarioController {
 
     @PostMapping
     ResponseEntity criar(@RequestBody Usuario usuario) {
-        UsuarioService usuarioService = Context.getBean(UsuarioService.class);
+        UsuarioService usuarioService = null;
 
         usuarioService.criar(usuario);
 
@@ -62,7 +63,7 @@ public class UsuarioController {
     ResponseEntity deletar(@PathVariable("id") Integer idUsuario) {
         Usuario usuario = iGenericDAO.find(idUsuario);
 
-        UsuarioService usuarioService = Context.getBean(UsuarioService.class);
+        UsuarioService usuarioService = null;
 
         usuarioService.deletar(usuario);
 
