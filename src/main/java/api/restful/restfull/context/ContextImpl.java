@@ -1,6 +1,5 @@
 package api.restful.restfull.context;
 
-import api.restful.restfull.service.impl.UsuarioServiceImpl;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -21,9 +20,6 @@ public class ContextImpl implements ApplicationContextAware, IContext {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
-
-        createBeanProxy(UsuarioServiceImpl.class);
-//        createBeanSingleton(UsuarioServiceImpl.class);
     }
 
     @Override
