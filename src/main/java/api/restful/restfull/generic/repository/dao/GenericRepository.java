@@ -10,4 +10,10 @@ import java.io.Serializable;
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class GenericRepository<T extends AbstractEntity, I extends Serializable> extends AbstractRepository<T, I> implements IGenericRepository<T> {
+
+    private Class<T> entityClass;
+
+    public GenericRepository() {
+        resolverClass(this.entityClass);
+    }
 }
