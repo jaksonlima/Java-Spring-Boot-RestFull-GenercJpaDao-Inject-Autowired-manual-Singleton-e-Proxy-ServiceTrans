@@ -1,6 +1,5 @@
 package api.restful.restfull.context;
 
-import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -25,29 +24,13 @@ public class ContextImpl implements ApplicationContextAware, IContext {
     @Override
     public void createBeanSingleton(Class clazz) {
         try {
-            Object bean = instantiateClass(clazz);
+            Object bean = newInstance(clazz);
             ConfigurableListableBeanFactory beanFactory = ((ConfigurableApplicationContext) applicationContext).getBeanFactory();
             beanFactory.registerSingleton(bean.getClass().getCanonicalName(), bean);
             beanFactory.autowireBean(bean);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-    }
-
-    @Override
-    public void createBeanProxy(Class clazz) {
-        final ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
-
-        Object bean = instantiateClass(clazz);
-
-        ConfigurableListableBeanFactory beanFactory = ((ConfigurableApplicationContext) applicationContext).getBeanFactory();
-        beanFactory.autowireBean(bean);
-
-        proxyFactoryBean.setTarget(bean);
-
-        bean = proxyFactoryBean.getObject();
-
-        beanFactory.registerSingleton(bean.getClass().getCanonicalName(), bean);
     }
 
     @Override
@@ -75,7 +58,7 @@ public class ContextImpl implements ApplicationContextAware, IContext {
         }
     }
 
-    private Object instantiateClass(Class clazz) {
+    public Object newInstance(Class clazz) {
         try {
             if (clazz == null) {
                 throw new RuntimeException("Class não encontrada.");

@@ -1,0 +1,61 @@
+#app:
+#  name:
+#  description:
+#  version: "1.0.0"
+#  base-path: /
+#
+#api:
+#  prefix.v1: ${app.base-path}/v1
+#  url:
+#
+#desenv:
+#  sql_console: false
+#
+#spring:
+#  profiles: production
+#  application.name: ${app.name}
+#  main.banner-mode: "off"
+#  data.rest.base-path: ${app.base-path}
+#  jpa:
+#    show-sql: ${desenv.sql_console}
+#    database: postgresql
+#    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+#    properties:
+#      hibernate:
+#        temp.use_jdbc_metadata_defaults: false
+#        use_sql_comments: ${desenv.sql_console}
+#        format_sql: ${desenv.sql_console}
+#        default_schema: public
+#
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    type: com.zaxxer.hikari.HikariDataSource
+#    url: jdbc:postgresql:
+#    username: desenv
+#    password:
+#
+#  server:
+#    port: 8080
+#    servlet:
+#      context-path: /
+#    http2:
+#      enabled: true
+#    compression:
+#      enabled: true
+#    min-response-size: 1
+#    mime-types: text/html,
+#                text/xml,
+#                text/plain,
+#                text/css,
+#                text/javascript,
+#                application/javascript,
+#                application/json,
+#                application/xml,
+#                application/pdf,
+#                image/png,
+#                image/jpeg,
+#                image/svg+xml
+#
+#  logging:
+#    level:
+#      root: 'INFO'

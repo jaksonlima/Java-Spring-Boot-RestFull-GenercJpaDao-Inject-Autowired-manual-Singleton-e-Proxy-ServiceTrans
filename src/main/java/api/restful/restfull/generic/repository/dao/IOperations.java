@@ -1,5 +1,8 @@
-package api.restful.restfull.generic.repository;
+package api.restful.restfull.generic.repository.dao;
 
+import org.springframework.data.repository.NoRepositoryBean;
+
+@NoRepositoryBean
 interface IOperations<T> {
 
     Class<T> getEntityClass();
@@ -24,19 +27,17 @@ interface IOperations<T> {
 
     T mergeOrPersist(T entity);
 
-    T find(Integer id);
+    T find(Number id);
 
     T find(T entity);
 
-    T findAndValidate(Integer id);
+    T findValidate(Integer id);
 
     T findLock(Integer id);
 
     T findLockNoWait(Integer id);
 
     T findRefresh(Integer id);
-
-    Integer getNextVal(String sequenceName) throws RuntimeException;
 
     void remove(T entity);
 

@@ -1,8 +1,6 @@
 package api.restful.restfull.controller;
 
-import api.restful.restfull.context.ContextImpl;
-import api.restful.restfull.context.IContext;
-import api.restful.restfull.generic.repository.IGenericDAO;
+import api.restful.restfull.generic.repository.dao.IGenericRepository;
 import api.restful.restfull.model.Usuario;
 import api.restful.restfull.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,10 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    IGenericDAO<Usuario> iGenericDAO;
+    IGenericRepository<Usuario> iGenericDAO;
 
     @Autowired
-    public void setDao(IGenericDAO<Usuario> genericDAO) {
+    public void setDao(IGenericRepository<Usuario> genericDAO) {
         iGenericDAO = genericDAO;
         genericDAO.setClass(Usuario.class);
     }

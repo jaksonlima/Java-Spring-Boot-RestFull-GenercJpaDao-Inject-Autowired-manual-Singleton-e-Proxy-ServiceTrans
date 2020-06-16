@@ -1,6 +1,5 @@
 package api.restful.restfull.generic.repository.dao;
 
-import api.restful.restfull.generic.repository.GenericJpaDAO;
 import api.restful.restfull.model.Usuario;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class UsuarioDao extends GenericJpaDAO<Usuario> {
+public class UsuarioDao extends GenericRepository<Usuario, Integer> {
 
     public Usuario encontrarPorId(Integer id) {
         StringBuilder sql = new StringBuilder();

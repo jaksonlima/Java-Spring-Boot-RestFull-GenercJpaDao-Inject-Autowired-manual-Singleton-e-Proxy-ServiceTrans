@@ -3,13 +3,12 @@ package api.restful.restfull.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "USUARIO")
-public class Usuario implements Serializable {
+public class Usuario extends AbstractEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
